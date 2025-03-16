@@ -21,7 +21,7 @@ class LoginPageState extends State<LoginPage> {
       setState(() {
         _errorMessage = "Username atau Password tidak boleh kosong!";
       });
-    } else if (username == "fulan" && password == "fulan") {
+    } else if (username == "annas" && password == "annas") {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => HomePage(username: username)),

@@ -23,6 +23,12 @@ class _DetailPageState extends State<DetailPage> {
   bool _isLike = false;
 
   @override
+  void initState() {
+    super.initState();
+    numLikes = widget.likes;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("News Detail")),
@@ -62,21 +68,31 @@ class _DetailPageState extends State<DetailPage> {
                   child: GestureDetector(
                     onTap: () {
                       setState(() {
-                        _isLike = true;
-                        numLikes = widget.likes + 1;
+                        if (_isLike) {
+                          numLikes--;
+                          _isLike = false;
+                        } else {
+                          numLikes++;
+                          _isLike = true;
+                        }
                       });
                     },
-                    child: Text(
-                      '\u2764 ${widget.likes} likes',
-                      style: TextStyle(fontSize: 14, color: Colors.grey),
+                    child: Row(
+                      children: [
+                        Icon(
+                          _isLike ? Icons.favorite : Icons.favorite_border,
+                          color: _isLike ? Colors.red : Colors.grey,
+                          size: 16, // Sesuaikan ukuran jika diperlukan
+                        ),
+                        SizedBox(
+                          width: 4,
+                        ), // Memberi jarak antara ikon dan teks
+                        Text(
+                          '$numLikes likes',
+                          style: TextStyle(fontSize: 14, color: Colors.grey),
+                        ),
+                      ],
                     ),
-                  ),
-                ),
-                SizedBox(
-                  width: double.infinity,
-                  child: Text(
-                    "\u2764 $numLikes likes",
-                    style: TextStyle(fontSize: 14, color: Colors.grey),
                   ),
                 ),
               ],
